@@ -2,6 +2,7 @@ package com.example.filterdemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 import com.example.filterdemo.filter.LoggingFilter;
@@ -15,12 +16,26 @@ public class FilterdemoApplication {
 	}
 
 	@Bean
-	public LoggingFilter loggingFilter() {
-		return new LoggingFilter();
+	public FilterRegistrationBean<LoggingFilter> loggingFilter() {
+
+		FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<>();
+
+		registrationBean.setFilter(new LoggingFilter());
+		registrationBean.addUrlPatterns("/*");
+		registrationBean.setOrder(1); // lower number = higher priority
+
+		return registrationBean;
+
 	}
 
 	@Bean
-	public SecondFilter secondFilter() {
-		return new SecondFilter();
+	public FilterRegistrationBean<SecondFilter> secondfilter() {
+		FilterRegistrationBean<SecondFilter> registrationBean = new FilterRegistrationBean<>();
+		registrationBean.setFilter(new SecondFilter());
+		registrationBean.addUrlPatterns("/admin");
+		registrationBean.setOrder(2);
+		return registrationBean;
+
 	}
+
 }
