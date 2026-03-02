@@ -17,7 +17,8 @@ public class LoggingFilter implements Filter{
 			             FilterChain chain) throws IOException, ServletException {
 		System.out.println("request received");
 		
-        // pass the request to the next element in the chain
+        /* pass the request to the next element in the chain */
+		
 //		chain.doFilter(request, response);
 		
 		
